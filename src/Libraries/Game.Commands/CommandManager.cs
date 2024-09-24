@@ -178,15 +178,12 @@ internal class CommandManager : ICommandManager
         {
             // special case for help
 
-            var sb = new StringBuilder("The following commands are available:\n");
+            connection.Player.SendChatInfo("The following commands are available:");
             foreach (var handler in _commandHandlers)
             {
-                sb.AppendLine($"- /{handler.Key}");
+                // TODO: filter operator commands
+                connection.Player.SendChatInfo($"/{handler.Key} - {handler.Value.Description}");
             }
-
-            var msg = sb.ToString();
-
-            connection.Player.SendChatMessage(msg);
         }
         else
         {
